@@ -1,6 +1,21 @@
-function ProductTour(steps, options){
+var ProductTour;
+(function ( jQuery ) {
+	ProductTour = function(steps, options){
+	var added = false;
+	
 
-	this.addNewTourStep = (items)=> {
+	this.startTour = ()=>{
+		console.log('here it is', jQuery);
+		jQuery.fn.exists = function(){ return this.length > 0; }
+		jQuery('.cd-tour-wrapper').exists() && initTour();
+	}
+
+	this.addNewTourSteps = (items)=> {
+		if(!(items instanceof Array)) return;
+		if(added) {
+			console.warn('Tour steps has already been added');
+			return;
+		}
 		var itemString = "<ul class='cd-tour-wrapper'>";
 
 		for (var i = 0; i<items.length; i++) {
@@ -32,6 +47,8 @@ function ProductTour(steps, options){
 		itemString = itemString.concat("</ul>");
 		jQuery('body').append(itemString);
 		jQuery('body').append("<div class='overlay-tour'></div>");
+
+		added = true;
 	};
 
 	function initTour() {
@@ -102,4 +119,69 @@ function ProductTour(steps, options){
 		}
 	};
 
+	function createNavigation(steps, n) {
+		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="#0" class="cd-prev">&#171; Previous</a></li><li><a href="#0" class="cd-next">Next &#187;</a></li></ul></div><a href="#0" class="cd-close">Close</a>';
+
+		steps.each(function(index){
+			var step = jQuery(this),
+				stepNumber = index + 1,
+				nextClass = ( stepNumber < n ) ? '' : 'inactive',
+				prevClass = ( stepNumber == 1 ) ? 'inactive' : '';
+			var nav = jQuery(tourNavigationHtml).find('.cd-next').addClass(nextClass).end().find('.cd-prev').addClass(prevClass).end().find('.cd-actual-step').html(stepNumber).end().appendTo(step.children('.cd-more-info'));
+		});
+	}
+
+	function showStep(step, layer) {
+		step.addClass('is-selected').removeClass('move-left');
+		smoothScroll(step.children('.cd-more-info'));
+		showLayer(layer);
+	}
+
+	function smoothScroll(element) {
+		if(jQuery(window).width() < 768) return;
+		var top = jQuery(jQuery("li.cd-single-step.is-selected input").val()).offset().top;
+		var height = jQuery(jQuery("li.cd-single-step.is-selected input").val()).height();
+
+		(top < jQuery(window).scrollTop()) && jQuery('body,html').animate({'scrollTop': top - height}, 'slow');
+		(top + height > jQuery(window).scrollTop() + jQuery(window).height() ) && jQuery('body,html').animate({'scrollTop': top - height}, 'slow'); 
+	}
+
+	function showLayer(layer) {
+		layer.addClass('is-visible').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(){
+			layer.removeClass('is-visible');
+		});
+	}
+
+	function changeStep(steps, layer, bool) {
+		var visibleStep = steps.filter('.is-selected'),
+			delay = (viewportSize() == 'desktop') ? 300: 0; 
+		visibleStep.removeClass('is-selected');
+
+		jQuery("li.cd-single-step input").each(function(i){
+			jQuery(jQuery(this).val()).removeAttr('style');
+		});
+
+		(bool == 'next') && visibleStep.addClass('move-left');
+
+		setTimeout(function(){
+			( bool == 'next' )
+				? showStep(visibleStep.next(), layer)
+				: showStep(visibleStep.prev(), layer);
+			jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({'z-index': 90001, position: 'relative'});
+		}, delay);
+	}
+
+	function closeTour(steps, wrapper, layer) {
+		steps.removeClass('is-selected move-left');
+		wrapper.removeClass('active');
+		layer.removeClass('is-visible');
+		jQuery('.overlay-tour').css({display: 'none'});
+	}
+
+	function viewportSize() {
+		/* retrieve the content value of .cd-main::before to check the actua mq */
+		return window.getComputedStyle(document.querySelector('.cd-tour-wrapper'), '::before').getPropertyValue('content').replace(/"/g, "").replace(/'/g, "");
+	}
+
 }
+}( jQuery ));
