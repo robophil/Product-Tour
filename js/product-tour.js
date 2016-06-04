@@ -173,6 +173,9 @@ var ProductTour;
 		wrapper.removeClass('active');
 		layer.removeClass('is-visible');
 		jQuery('.overlay-tour').css({display: 'none'});
+		jQuery("li.cd-single-step input").each(function(i){
+			jQuery(jQuery(this).val()).removeAttr('style');
+		});
 	}
 
 	function viewportSize() {
