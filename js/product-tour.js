@@ -1,10 +1,9 @@
 var ProductTour;
 (function ( jQuery ) {
-	ProductTour = function(steps, options){
+	ProductTour = function(options){
 	var added = false;
 	
 	this.startTour = ()=>{
-		console.log('here it is', jQuery);
 		jQuery.fn.exists = function(){ return this.length > 0; }
 		jQuery('.cd-tour-wrapper').exists() && initTour();
 	}
@@ -63,7 +62,6 @@ var ProductTour;
 
 		//create the navigation for each step of the tour
 		createNavigation(tourSteps, stepsNumber);
-		console.log(jQuery(".cd-single-step input").val());
 		jQuery(jQuery("li.cd-single-step input").val()).css({'z-index': 90001, position: 'relative'});
 		
 		tourTrigger.on('click', function(){
