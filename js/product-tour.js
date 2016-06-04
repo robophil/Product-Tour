@@ -3,7 +3,6 @@ var ProductTour;
 	ProductTour = function(steps, options){
 	var added = false;
 	
-
 	this.startTour = ()=>{
 		console.log('here it is', jQuery);
 		jQuery.fn.exists = function(){ return this.length > 0; }
