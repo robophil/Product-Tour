@@ -117,7 +117,7 @@ var ProductTour;
 	};
 
 	function createNavigation(steps, n) {
-		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="#0" class="cd-prev">&#171; Previous</a></li><li><a href="#0" class="cd-next">Next &#187;</a></li></ul></div><a href="#0" class="cd-close">Close</a>';
+		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#171; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#187;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
 
 		steps.each(function(index){
 			var step = jQuery(this),

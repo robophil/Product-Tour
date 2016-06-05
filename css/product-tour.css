@@ -23,10 +23,6 @@ a {
   text-decoration: none;
 }
 
-img {
-  max-width: 100%;
-}
-
 /* -------------------------------- 
 
 xnugget info 
@@ -292,29 +288,6 @@ Main Components
     -moz-transition: visibility 0s 0.4s;
     transition: visibility 0s 0.4s;
   }
-  .cd-single-step:nth-of-type(1) {
-    /* set tour points positions */
-    bottom: 40%;
-    right: 30%;
-  }
-  .cd-single-step:nth-of-type(2) {
-    /*bottom: 40%;
-    right: 48%;*/
-	top: 80%;
-	left: 60%;
-  }
-  .cd-single-step:nth-of-type(3) {
-    top: 48%;
-    left: 20%;
-  }
-  .cd-single-step:nth-of-type(4) {
-    top: 50%;
-    left: 50%;
-  }
-  .cd-single-step:nth-of-type(5) {
-    top: 50%;
-    left: 70%;
-  }
   .cd-single-step > span, .cd-single-step::after {
     display: block;
   }
@@ -411,6 +384,7 @@ Main Components
 }
 .cd-single-step .cd-more-info img {
   margin-bottom: 1.4em;
+  max-width: 100%;
 }
 .cd-single-step .cd-more-info .cd-close {
   /* 'X' icon to skip the tour */
