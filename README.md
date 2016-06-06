@@ -34,12 +34,14 @@ var productTour = new ProductTour({
 	beforeShow: function(){},//coming soon
 	afterShow: function(){}//comming soon
 });
-productTour.addNewTourSteps([
+productTour.addNewTourSteps([//can only be called once
 	element: '',
 	title: '',
 	content: '',
 	class: ''//top, bottom, right, left
 ]);
+
+productTour.startTour();//initialize the tour
 ```
 
 
