@@ -19,11 +19,15 @@ var ProductTour;
 		var itemString = "<ul class='cd-tour-wrapper'>";
 
 		for (var i = 0; i<items.length; i++) {
-			items[i].element = items[i].element ? items[i].element : 0;
+			items[i].element = items[i].element ? items[i].element : false;
 			items[i].title = items[i].title ? items[i].title : 'hey... i worked';
 			items[i].content = items[i].content ? items[i].content : '';
 			items[i].image = items[i].image ? items[i].image : '';
 			items[i].class = items[i].class ? items[i].class : 'bottom';
+
+			//make it always reference the first element
+			if(!items[i].element)
+				items[i].element = items[i].element + ':first';
 
 
 			var foo = "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src='images/wow.jpg'></div></li></div>"
