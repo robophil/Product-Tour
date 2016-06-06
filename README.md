@@ -34,10 +34,12 @@ var productTour = new ProductTour({
 	beforeShow: function(){},//coming soon
 	afterShow: function(){}//comming soon
 });
-productTour.addNewTourSteps([//can only be called once
-	element: '',
+//can only be called once
+productTour.addNewTourSteps([//pass an array of tour steps
+	element: '',//specify the target element #search or .header
 	title: '',
 	content: '',
+	image: '',//specify image to be shown on mobile view
 	class: ''//top, bottom, right, left
 ]);
 
