@@ -4,6 +4,7 @@ var ProductTour;
 	var added = false;
 	options.nextText = options.nextText ? options.nextText : "Next &#187;";
 	options.prevText = options.prevText ? options.prevText : "&#171; Previous";
+	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
 	
 	this.startTour = ()=>{
 		jQuery.fn.exists = function(){ return this.length > 0; }
@@ -192,6 +193,8 @@ var ProductTour;
 		jQuery("li.cd-single-step input").each(function(i){
 			jQuery(jQuery(this).val()).removeAttr('style');
 		});
+		if(jQuery.isFunction(options.onFinshFunction))
+			options.onFinshFunction();//execute function
 	}
 
 	function viewportSize() {
