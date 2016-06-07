@@ -25,6 +25,10 @@ var ProductTour;
 			items[i].image = items[i].image ? items[i].image : '';
 			items[i].class = items[i].class ? items[i].class : 'bottom';
 
+			//find out if the element exists
+			if(!jQuery(items[i].element).length)
+				items[i].element = 'body';//make it point to body
+
 			//make it always reference the first element
 			if(!items[i].element)
 				items[i].element = items[i].element + ':first';
