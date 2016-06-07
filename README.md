@@ -5,7 +5,10 @@ A responsive tour snippet, with a step-by-step guide(onboarding) to help users u
 ```javascript
 		var productTour = new ProductTour({
 				nextText: 'Next',
-				prevText: 'Previous'
+				prevText: 'Previous',
+				onFinshFunction: function(){
+					console.log('ok..am done here');
+				}
 			});
 			
 		productTour.addNewTourSteps([{element: '#search', 
@@ -31,6 +34,7 @@ Simply include the following to get started
 var productTour = new ProductTour({ 
 	nextText: '',
 	prevText: '',
+	onFinshFunction: function(){},
 	beforeShow: function(){},//coming soon
 	afterShow: function(){}//comming soon
 });
