@@ -1,5 +1,5 @@
 var ProductTour;
-(function ( jQuery ) {
+(function ( jQuery ) { 
 	ProductTour = function(options){
 	var added = false;
 	options.nextText = options.nextText ? options.nextText : "Next &#187;";
