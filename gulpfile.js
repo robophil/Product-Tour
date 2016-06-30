@@ -81,3 +81,5 @@ gulp.task('watch',['browserSync'], function(){
     gulp.watch('css/*.css', ['build-css']);
     gulp.watch('**/*.html', browserSync.reload);
 });
+
+gulp.task("serve",['watch']);
