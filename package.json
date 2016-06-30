@@ -1,0 +1,30 @@
+{
+  "name": "product-tour",
+  "version": "1.0.0",
+  "description": "A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website",
+  "main": "js/product-tour.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theo4u/Product-Tour.git"
+  },
+  "keywords": [
+    "tour",
+    "preview",
+    "welcome",
+    "css",
+    "js",
+    "npm"
+  ],
+  "author": "Theophilus Omoregbee <theo4u@ymail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theo4u/Product-Tour/issues"
+  },
+  "homepage": "https://github.com/theo4u/Product-Tour#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
