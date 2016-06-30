@@ -3,6 +3,8 @@
  */
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
+var uglify = require('gulp-uglify');
+
 
 gulp.task('browserSync', function() {
     browserSync.init({
@@ -15,11 +17,12 @@ gulp.task('browserSync', function() {
 gulp.task('build',['build-css','build-js']);
 
 gulp.task('build-css', function() {
-    console.log("Theohilus css");
+    console.log("Build css");
     browserSync.reload();
 });
 gulp.task('build-js', function() {
-    console.log("Theohilus js");
+
+    console.log("Build js");
     browserSync.reload();
 });
 
