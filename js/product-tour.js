@@ -1,17 +1,17 @@
 var ProductTour;
-(function ( jQuery ) { 
+(function ( jQuery ) {
 	ProductTour = function(options){
 	var added = false;
 	options.nextText = options.nextText ? options.nextText : "Next &#187;";
 	options.prevText = options.prevText ? options.prevText : "&#171; Previous";
 	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
 	
-	this.startTour = ()=>{
+	this.startTour =function (){
 		jQuery.fn.exists = function(){ return this.length > 0; }
 		jQuery('.cd-tour-wrapper').exists() && initTour();
 	}
 
-	this.addNewTourSteps = (items)=> {
+	this.addNewTourSteps = function (items) {
 		if(!(items instanceof Array)) return;
 		if(added) {
 			console.warn('Tour steps has already been added');
