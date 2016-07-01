@@ -29,7 +29,7 @@ A responsive tour snippet, with a step-by-step guide(onboarding) to help users u
 ##Usage
 Simply include the following to get started
 ```html
-<script srch="<link to jquery.js>"></script>
+<script src="<link to jquery.js>"></script>
 <script src="product-tour.js" type="text/javascript"></script>
 <link href="product-tour.css" rel="stylesheet" type="text/css" />
 ```
