@@ -1,0 +1,28 @@
+{
+  "name": "product-tour",
+  "description": "A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website",
+  "main": "js/product-tour.js",
+  "authors": [
+    "Theophilus Omoregbee <theo4u@ymail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "tour",
+    "preview",
+    "welcome",
+    "css",
+    "js",
+    "npm"
+  ],
+  "homepage": "https://github.com/theo4u/Product-Tour",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.0.0"
+  }
+}
