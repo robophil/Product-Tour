@@ -2,8 +2,8 @@ var ProductTour;
 (function ( jQuery ) {
 	ProductTour = function(options){
 	var added = false;
-	options.nextText = options.nextText ? options.nextText : "Next &#187;";
-	options.prevText = options.prevText ? options.prevText : "&#171; Previous";
+	options.nextText = options.nextText ? options.nextText : "Next &#8618;";
+	options.prevText = options.prevText ? options.prevText : "&#8617; Previous";
 	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
 	
 	this.startTour =function (){
@@ -75,8 +75,8 @@ var ProductTour;
 		createNavigation(tourSteps, stepsNumber);
 
 		//configuration setting initialzation
-		jQuery('.cd-next').text(options.nextText);
-		jQuery('.cd-prev').text(options.prevText);
+		jQuery('.cd-next').html(options.nextText);
+		jQuery('.cd-prev').html(options.prevText);
 
 		//init for first tour step display
 		jQuery(jQuery("li.cd-single-step input").val()).css({'z-index': 90001, position: 'relative'});
@@ -134,7 +134,7 @@ var ProductTour;
 	};
 
 	function createNavigation(steps, n) {
-		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#171; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#187;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
+		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#8617; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#8618;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
 
 		steps.each(function(index){
 			var step = jQuery(this),
