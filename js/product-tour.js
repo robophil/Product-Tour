@@ -1,59 +1,66 @@
 var ProductTour;
 (function ( jQuery ) {
 	ProductTour = function(options){
-	var added = false;
+	var added = false;//if tour stepps has been added
 	options.nextText = options.nextText ? options.nextText : "Next &#8618;";
 	options.prevText = options.prevText ? options.prevText : "&#8617; Previous";
 	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
 	
 	this.startTour =function (){
 		jQuery.fn.exists = function(){ return this.length > 0; }
-		jQuery('.cd-tour-wrapper').exists() && initTour();
+		jQuery('.cd-tour-wrapper').exists() && initTour();//checks if tour items has been added to the page, then initialize
 	}
 
 	this.addNewTourSteps = function (items) {
-		if(!(items instanceof Array)) return;
+		if(!(items instanceof Array)) return;//expecting an array. If not one, return
 		if(added) {
 			console.warn('Tour steps has already been added');
 			return;
 		}
+
 		var itemString = "<ul class='cd-tour-wrapper'>";
 
 		for (var i = 0; i<items.length; i++) {
 			items[i].element = items[i].element ? items[i].element : false;
-			items[i].title = items[i].title ? items[i].title : 'hey... i worked';
-			items[i].content = items[i].content ? items[i].content : '';
-			items[i].image = items[i].image ? items[i].image : '';
+			items[i].title = items[i].title ? items[i].title : 'Sample title';
+			items[i].content = items[i].content ? items[i].content : 'Sample content';
+			items[i].image = items[i].image ? items[i].image : 'images/sample.jpg';//image is needed for mobile
 			items[i].class = items[i].class ? items[i].class : 'bottom';
 
 			//find out if the element exists
 			if(!jQuery(items[i].element).length)
-				items[i].element = 'body';//make it point to body
+				items[i].element = 'body';//if the item dosen't exist make it point to body
 
 			//make it always reference the first element
-			if(!items[i].element)
+			if(items[i].element)
 				items[i].element = items[i].element + ':first';
+				
 
 
-			var foo = "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src='images/wow.jpg'></div></li></div>"
+			var foo = "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src=''></div></li></div>"
 			var htmlElement = jQuery(foo);
 			jQuery('h2', htmlElement).text(items[i].title);
 			jQuery('p', htmlElement).text(items[i].content);
 			jQuery('.cd-more-info', htmlElement).addClass(items[i].class);
-			jQuery('img', htmlElement).text(items[i].content);
-			if(items[i].element){
-				var widthHalf = jQuery(items[i].element).outerWidth()/2;
-				var heightHalf = jQuery(items[i].element).outerHeight()-10;
+			jQuery('img', htmlElement).attr("src",items[i].image);
 
-				var top = jQuery(items[i].element).offset().top + heightHalf;
+			if(items[i].element){
+				var widthHalf = jQuery(items[i].element).outerWidth()/2;//get half the width of item
+				var heightHalf = jQuery(items[i].element).innerHeight()/2;//get half the height
+
+				var top = jQuery(items[i].element).offset().top + -12 + heightHalf;//12px is the magical pixel ;)
 				var left = jQuery(items[i].element).offset().left + widthHalf;
-				jQuery('input', htmlElement).val(items[i].element);
-				jQuery('li.cd-single-step', htmlElement).css({top: top, left: left, height: '10px', width: '10px'});
+
+				jQuery('input', htmlElement).val(items[i].element);//save the target element in the dom
+				jQuery('li.cd-single-step', htmlElement).css({top: top, left: left, height: '10px', width: '10px'});//Item is ready
 			}
+			//build the tour content
 			itemString = itemString.concat(htmlElement.html());
 		}
 
+		//close it up
 		itemString = itemString.concat("</ul>");
+		//attach tour to the dom
 		jQuery('body').append(itemString);
 		jQuery('body').append("<div class='overlay-tour'></div>");
 
@@ -68,7 +75,6 @@ var ProductTour;
 			tourStepInfo = jQuery('.cd-more-info'),
 			tourTrigger = jQuery('#cd-tour-trigger');
 			jQuery('.overlay-tour').css({display: 'block'});
-			//jQuery(jQuery(".active .cd-single-step.is-selected input").val()).css({'z-index': 90001});
 
 
 		//create the navigation for each step of the tour
