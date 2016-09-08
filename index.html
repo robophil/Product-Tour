@@ -3,28 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Building And Testing of our product-tour</title>
-    <link rel="stylesheet" href="dist/css/product-tour.min.css">
+    <link rel="stylesheet" href="css/product-tour.css">
 </head>
 <body>
 
-<p id="first">Here this is our first tour</p>
-<p id="second">Here this is our first tour second step</p>
-<p id="four">Here this is our first tour forth step</p>
-<p id="third">Here this is our first tour third step</p>
+<p id="first">Hello there, am the first paragraph............</p>
+<p id="second">This is the second destination of our tour......................................... yep, i am the second destination.</p>
+<p id="four">Here this is our first tour destination</p>
+<p id="third">How many third can you see? thirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthird</p>
 
 <!-- Main Vendors -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- / Main Vendors -->
 
-<script src="dist/js/product-tour.min.js"></script>
+<script src="js/product-tour.js"></script>
 <script>
     //initialize constructor
     var productTour = new ProductTour({
         nextText: '',
         prevText: '',
         onFinshFunction: function(){},
-        beforeShow: function(){},//coming soon
-        afterShow: function(){}//comming soon
+        beforeShow: function(){},//not yet implemented
+        afterShow: function(){}//not yet implemented
     });
     //can only be called once
     productTour.addNewTourSteps([{//pass an array of tour steps
