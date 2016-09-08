@@ -127,7 +127,7 @@ Main Components
   transition: opacity 0.4s 0s, visibility 0s 0s;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 767px) {
 	li.cd-single-step{
 	  top:0 !important;
 	  left:0 !important;
