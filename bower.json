@@ -1,7 +1,10 @@
 {
   "name": "product-tour",
   "description": "A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website",
-  "main": "js/product-tour.js",
+   "main": [
+    "dist/js/product-tour.min.js",
+    "dist/css/product-tour.min.css"
+  ],
   "authors": [
     "Theophilus Omoregbee <theo4u@ymail.com>"
   ],
