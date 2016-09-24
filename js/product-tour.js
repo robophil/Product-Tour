@@ -200,7 +200,7 @@ var ProductTour;
 				closeTour(tourSteps, tourWrapper, coverLayer);
                 //running call our onClosed trigger if specified
                 if(jQuery.isFunction(options.onClosed))
-                    options.onClosed(coverLayer);
+                    options.onClosed(jQuery(global_items[getActiveStepCount()].element));
 			}
 		});
 
