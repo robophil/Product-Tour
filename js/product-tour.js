@@ -3,15 +3,15 @@
  * ### options permitted :
  * attribute        |   options     |   Value {default}
  * -----------------|---------------|------------------
- * data-html        |   html        |   true | false {false}
+ * data-html        |   html        |   true|false {false}
  * data-next        |   next        |   string|html depends on the data-html {'Next &#8618;'}
  * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
- * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
+ * data-overlay     |   overlay     |   true|false {true}
  *
  *
  * ### functions triggered
  * 1. onStart --> when the tour is start tour method is called.
- * 2. onClose --> when the tour is close or destroyed. The current step element is available as the **relatedTarget** property of the event
+ * 2. onClosed --> when the tour is close or destroyed. The current step element is available as the **relatedTarget** property of the event
  * 3. onChanged  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
  * 4. onFinished --> when our tour has finished its processing. The current step element is available as the **relatedTarget** property of the event
  */
@@ -24,70 +24,108 @@ var ProductTour;
      */
 	ProductTour = function(options){
 	var added = false;//if tour steps has been added
-	options.nextText = options.nextText ? options.nextText : "Next &#8618;";
-	options.prevText = options.prevText ? options.prevText : "&#8617; Previous";
+
+        /**
+         *  options initialization
+         */
+        options.next = options.next ? options.next : "Next";
+        options.prev = options.prev ? options.prev : "Previous";
+        options.html = options.html ? options.html : false;
+
+        //functions triggers
+        options.onStart = options.onStart ? options.onStart : undefined;
+        options.onChanged = options.onChanged ? options.onChanged : undefined;
+        options.onClosed = options.onClosed ? options.onClosed : undefined;
+        options.onFinished = options.onFinished ? options.onFinished : undefined;
+
+
 	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
-	
+
+
+        /**
+         * startTour method
+         * this checks if tour items has been added to the page, then initialize
+         *
+         * if the onStart method is added in our options run it
+         */
 	this.startTour =function (){
 		jQuery.fn.exists = function(){ return this.length > 0; };
 		jQuery('.cd-tour-wrapper').exists() && initTour();//checks if tour items has been added to the page, then initialize
+
+        //running call our onStart trigger if specified
+        if(jQuery.isFunction(options.onStart))
+             options.onStart();
 	};
 
-	this.addNewTourSteps = function (items) {
-		if(!(items instanceof Array)) return;//expecting an array. If not one, return
-		if(added) {
-			console.warn('Tour steps has already been added');
-			return;
-		}
+        /**
+         * this add steps to our tour
+         * @param items {Array} of item_template below
+         *  each item hold this possible items
+         * {
+            element,//{selector}specify the target element
+            title,//title of the tour , can be optional incase the content design has title in it
+            content,//content to  display
+            image,//specify image to be shown on mobile view
+            position//top, bottom, right, left  default-> bottom
+            }
+         */
+	this.steps = function (items) {
+        if(!(items instanceof Array)) return;//expecting an array. If not one, return
+        if(added) {
+            console.warn("Tour steps has already been added, you can't add step on the fly, coming on next version");
+            return;
+        }
 
-		var itemString = "<ul class='cd-tour-wrapper'>";
+        //DOM initialization
+        var stepsHTML = "<ul class='cd-tour-wrapper'>";
+        var itemHTML =  "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src=''></div></li></div>";
 
-		for (var i = 0; i<items.length; i++) {
-			items[i].element = items[i].element ? items[i].element : false;
-			items[i].title = items[i].title ? items[i].title : 'Sample title';
-			items[i].content = items[i].content ? items[i].content : 'Sample content';
-			items[i].image = items[i].image ? items[i].image : 'images/sample.jpg';//image is needed for mobile
-			items[i].class = items[i].class ? items[i].class : 'bottom';
+        var itemString = "";
+        jQuery.each(items,function (index, item) {
+            //check and initialize items array of objects
+            item.element = item.element ? item.element : undefined;
+            item.title = item.title ? item.title : undefined;//if not specified dont add default since the content can do the design too
+            item.content = item.content ? item.content : '';//leave blank
+            item.image = item.image ? item.image : 'images/sample.jpg';//image is needed for mobile, dont see the need here
+            item.position = item.position ? item.position : 'bottom';
 
-			//find out if the element exists
-			if(!jQuery(items[i].element).length)
-				items[i].element = 'body';//if the item dosen't exist make it point to body
+            //find out if the element exists
+            if(item.element == undefined)
+                item.element = 'body';//if the item dosen't exist make it point to body
+            else
+                item.element += ":first"; //if exist just reference the first element
 
-			//make it always reference the first element
-			if(items[i].element)
-				items[i].element = items[i].element + ':first';
-				
+            var htmlElement = jQuery(itemHTML);
 
+          if(item.title != undefined)
+            jQuery('h2', htmlElement).text(item.title);
+           else //remove the h2 node , in case the content want to override the design
+              jQuery('h2', htmlElement).remove();
 
-			var foo = "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src=''></div></li></div>"
-			var htmlElement = jQuery(foo);
-			jQuery('h2', htmlElement).text(items[i].title);
-			jQuery('p', htmlElement).text(items[i].content);
-			jQuery('.cd-more-info', htmlElement).addClass(items[i].class);
-			jQuery('img', htmlElement).attr("src",items[i].image);
+            jQuery('p', htmlElement).text(item.content);
+            jQuery('.cd-more-info', htmlElement).addClass(item.position);
+            jQuery('img', htmlElement).attr("src",item.image);//dont see the need here
 
-			if(items[i].element){
-				var widthHalf = jQuery(items[i].element).outerWidth()/2;//get half the width of item
-				var heightHalf = jQuery(items[i].element).innerHeight()/2;//get half the height
+            if(item.element){
+                var widthHalf = jQuery(item.element).outerWidth()/2;//get half the width of item
+                var heightHalf = jQuery(item.element).innerHeight()/2;//get half the height
 
-				var top = jQuery(items[i].element).offset().top + -12 + heightHalf;//12px is the magical pixel ;)
-				var left = jQuery(items[i].element).offset().left + widthHalf;
+                var top = jQuery(item.element).offset().top + -12 + heightHalf;//12px is the magical pixel ;)
+                var left = jQuery(item.element).offset().left + widthHalf;
 
-				jQuery('input', htmlElement).val(items[i].element);//save the target element in the dom
-				jQuery('li.cd-single-step', htmlElement).css({top: top, left: left, height: '10px', width: '10px'});//Item is ready
-			}
-			//build the tour content
-			itemString = itemString.concat(htmlElement.html());
-		}
+                jQuery('input', htmlElement).val(item.element);//save the target element in the dom
+                jQuery('li.cd-single-step', htmlElement).css({top: top, left: left, height: '10px', width: '10px'});//Item is ready
+            }
+            //build the tour content
+            itemString += htmlElement.html();
+        });
 
-		//close it up
-		itemString = itemString.concat("</ul>");
-		//attach tour to the dom
-		jQuery('body').append(itemString);
-		jQuery('body').append("<div class='overlay-tour'></div>");
-
-		added = true;
-	};
+        stepsHTML += itemString+ "</ul>";
+        //attach tour to the dom
+        jQuery('body').append(stepsHTML);
+        jQuery('body').append("<div class='overlay-tour'></div>");
+        added = true;
+    };
 
 	function initTour() {
 		var tourWrapper = jQuery('.cd-tour-wrapper'), //get the wrapper element
@@ -103,9 +141,13 @@ var ProductTour;
 		createNavigation(tourSteps, stepsNumber);
 
 		//configuration setting initialzation
-		jQuery('.cd-next').html(options.nextText);
-		jQuery('.cd-prev').html(options.prevText);
-
+        if(options.html) {
+            jQuery('.cd-next').html(options.next);
+            jQuery('.cd-prev').html(options.prev);
+        }else{
+            jQuery('.cd-next').text(options.next);
+            jQuery('.cd-prev').text(options.prev);
+        }
 		//init for first tour step display
 		jQuery(jQuery("li.cd-single-step input").val()).css({'z-index': 90001, position: 'relative'});
 		
@@ -131,6 +173,9 @@ var ProductTour;
 		//close tour
 		tourStepInfo.on('click', '.cd-close', function(event){
 			closeTour(tourSteps, tourWrapper, coverLayer);
+            //running call our onClosed trigger if specified
+            if(jQuery.isFunction(options.onClosed))
+                options.onClosed(coverLayer);
 		});
 
 		//detect swipe event on mobile - change visible step
@@ -151,6 +196,9 @@ var ProductTour;
 				changeStep(tourSteps, coverLayer, 'next');
 			} else if( event.which=='27' ) {
 				closeTour(tourSteps, tourWrapper, coverLayer);
+                //running call our onClosed trigger if specified
+                if(jQuery.isFunction(options.onClosed))
+                    options.onClosed(coverLayer);
 			}
 		});
 
@@ -159,7 +207,7 @@ var ProductTour;
 				tourWrapper.addClass('active');
 				showStep(tourSteps.eq(0), coverLayer);
 		}
-	};
+	}
 
 	function createNavigation(steps, n) {
 		var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of '+n+'</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#8617; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#8618;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
@@ -194,6 +242,12 @@ var ProductTour;
 		});
 	}
 
+        /**
+         * this changes step , if any is active call the onChanged(current_layer) function if specified
+         * @param steps
+         * @param layer
+         * @param bool
+         */
 	function changeStep(steps, layer, bool) {
 		var visibleStep = steps.filter('.is-selected'),
 			delay = (viewportSize() == 'desktop') ? 300: 0; 
@@ -210,6 +264,9 @@ var ProductTour;
 				? showStep(visibleStep.next(), layer)
 				: showStep(visibleStep.prev(), layer);
 			jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({'z-index': 90001, position: 'relative'});
+            //running call our onChange trigger if specified
+            if(jQuery.isFunction(options.onChanged))
+                options.onChanged(layer);
 		}, delay);
 	}
 

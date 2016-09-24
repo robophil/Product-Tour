@@ -20,37 +20,35 @@
 <script>
     //initialize constructor
     var productTour = new ProductTour({
-      /*  nextText: '',
-        prevText: '',*/
+        onChanged:function (e) {
+            console.log("Return Value",e);
+        },
         onFinshFunction: function(){},
         beforeShow: function(){},//not yet implemented
         afterShow: function(){}//not yet implemented
     });
     //can only be called once
-    productTour.addNewTourSteps([{//pass an array of tour steps
+    productTour.steps([{//pass an array of tour steps
         element: '#first',//specify the target element #search or .header
             title: 'Tour',
             content: 'This is a Paragraph of Our First Tour Step 1',
-            image: '',//specify image to be shown on mobile view
-            class: 'right'//top, bottom, right, left
+            image: ''//specify image to be shown on mobile view
     },{//pass an array of tour steps
         element: '#second',//specify the target element #search or .header
-        title: 'Tour',
-        content: 'This is a Paragraph of Our First Tour Step 2',
+        content: 'No Title This is a Paragraph of Our First Tour Step 2',
         image: '',//specify image to be shown on mobile view
-        class: 'bottom'//top, bottom, right, left
+        position: 'bottom'//top, bottom, right, left
     },{//pass an array of tour steps
         element: '#third',//specify the target element #search or .header
         title: 'Tour',
         content: 'This is a Paragraph of Our First Tour Step 3',
-        image: '',//specify image to be shown on mobile view
-        class: 'top'//top, bottom, right, left
+        position: 'top'//top, bottom, right, left
     },{//pass an array of tour steps
         element: '#four',//specify the target element #search or .header
         title: 'Tour',
         content: 'This is a Paragraph of Our First Tour Step 4',
         image: '',//specify image to be shown on mobile view
-        class: 'left'//top, bottom, right, left
+        position: 'left'//top, bottom, right, left
     }]);
 
     productTour.startTour();//initialize the tour
