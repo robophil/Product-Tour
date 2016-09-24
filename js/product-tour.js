@@ -1,4 +1,5 @@
 /**
+ *
  * ### options permitted :
  * attribute        |   options     |   Value {default}
  * -----------------|---------------|------------------
@@ -8,11 +9,11 @@
  * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
  *
  *
- * ### Events triggered
- * 1. start.tour --> when the tour is start tour method is called. If caused by a click, the clicked element is available as the **relatedTarget** property of the event.
- * 2. close.tour --> when the tour is close or destroyed
- * 3. changed.tour  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
- * 4. finished.tour --> when our tour has finished its processing
+ * ### functions triggered
+ * 1. onStart --> when the tour is start tour method is called.
+ * 2. onClose --> when the tour is close or destroyed. The current step element is available as the **relatedTarget** property of the event
+ * 3. onChanged  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
+ * 4. onFinished --> when our tour has finished its processing. The current step element is available as the **relatedTarget** property of the event
  */
 var ProductTour;
 (function ( jQuery ) {
