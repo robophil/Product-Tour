@@ -7,17 +7,17 @@ A responsive tour snippet, with a step-by-step guide(onboarding) to help users u
 ##Example
 ```javascript
 		var productTour = new ProductTour({
-				nextText: 'Next',
-				prevText: 'Previous',
-				onFinshFunction: function(){
-					console.log('ok..am done here');
+				next: 'Next',
+				prev: 'Previous',
+				onChanged: function(e){
+					console.log('i just changed', e);
 				}
 			});
 			
-		productTour.addNewTourSteps([{element: '#search', 
+		productTour.steps([{element: '#search', 
 			title: 'Search for anything',
 			content: "Search for any product, from any page, anytime........", 
-			class: 'right'},
+			position: 'right'},
 			
 			{element:'.brand-carousel',
 			 title: 'Brands',
