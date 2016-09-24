@@ -21,6 +21,9 @@
     //initialize constructor
     var productTour = new ProductTour({
         overlay:false,
+        onStart: function () {
+            console.log("tour Started");
+        },
         onChanged:function (e) {
             console.log("Return Value",e);
         },

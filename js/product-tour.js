@@ -32,7 +32,7 @@ var ProductTour;
         options.prev = options.prev ? options.prev : "Previous";
         options.html = "html" in options ? options.html : false;
         options.overlay = "overlay" in options ? options.overlay : true;
-        console.log("Over Lay",options.overlay,"Html",options.html);
+
         //functions triggers
         options.onStart = options.onStart ? options.onStart : undefined;
         options.onChanged = options.onChanged ? options.onChanged : undefined;
