@@ -1,15 +1,36 @@
+/**
+ * ### options permitted :
+ * attribute        |   options     |   Value {default}
+ * -----------------|---------------|------------------
+ * data-html        |   html        |   true | false {false}
+ * data-next        |   next        |   string|html depends on the data-html {'Next &#8618;'}
+ * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
+ * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
+ *
+ *
+ * ### Events triggered
+ * 1. start.tour --> when the tour is start tour method is called. If caused by a click, the clicked element is available as the **relatedTarget** property of the event.
+ * 2. close.tour --> when the tour is close or destroyed
+ * 3. changed.tour  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
+ * 4. finished.tour --> when our tour has finished its processing
+ */
 var ProductTour;
 (function ( jQuery ) {
+    /**
+     * Productor Class object
+     * @param options holds the possible set of options allowed
+     * @constructor
+     */
 	ProductTour = function(options){
-	var added = false;//if tour stepps has been added
+	var added = false;//if tour steps has been added
 	options.nextText = options.nextText ? options.nextText : "Next &#8618;";
 	options.prevText = options.prevText ? options.prevText : "&#8617; Previous";
 	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
 	
 	this.startTour =function (){
-		jQuery.fn.exists = function(){ return this.length > 0; }
+		jQuery.fn.exists = function(){ return this.length > 0; };
 		jQuery('.cd-tour-wrapper').exists() && initTour();//checks if tour items has been added to the page, then initialize
-	}
+	};
 
 	this.addNewTourSteps = function (items) {
 		if(!(items instanceof Array)) return;//expecting an array. If not one, return
