@@ -13,7 +13,7 @@
  * 1. onStart --> when the tour is start tour method is called.
  * 2. onClosed --> when the tour is close or destroyed. The current step element is available as the **relatedTarget** property of the event
  * 3. onChanged  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
- * 4. onFinished --> when our tour has finished its processing. The current step element is available as the **relatedTarget** property of the event
+ * 4. onFinished(No use for the now) --> when our tour has finished its processing. The current step element is available as the **relatedTarget** property of the event
  */
 var ProductTour;
 (function ( jQuery ) {
@@ -30,17 +30,14 @@ var ProductTour;
          */
         options.next = options.next ? options.next : "Next";
         options.prev = options.prev ? options.prev : "Previous";
-        options.html = options.html ? options.html : false;
-
+        options.html = "html" in options ? options.html : false;
+        options.overlay = "overlay" in options ? options.overlay : true;
+        console.log("Over Lay",options.overlay,"Html",options.html);
         //functions triggers
         options.onStart = options.onStart ? options.onStart : undefined;
         options.onChanged = options.onChanged ? options.onChanged : undefined;
         options.onClosed = options.onClosed ? options.onClosed : undefined;
-        options.onFinished = options.onFinished ? options.onFinished : undefined;
-
-
-	options.onFinshFunction = options.onFinshFunction ? options.onFinshFunction : undefined;
-
+        options.onFinished = options.onFinished ? options.onFinished : undefined;//no use for the now
 
         /**
          * startTour method
@@ -123,6 +120,7 @@ var ProductTour;
         stepsHTML += itemString+ "</ul>";
         //attach tour to the dom
         jQuery('body').append(stepsHTML);
+        if(options.overlay)
         jQuery('body').append("<div class='overlay-tour'></div>");
         added = true;
     };
@@ -278,8 +276,6 @@ var ProductTour;
 		jQuery("li.cd-single-step input").each(function(i){
 			jQuery(jQuery(this).val()).removeAttr('style');
 		});
-		if(jQuery.isFunction(options.onFinshFunction))
-			options.onFinshFunction();//execute function
 	}
 
 	function viewportSize() {
