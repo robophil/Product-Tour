@@ -1,6 +1,6 @@
 /**
  *
- * ### options permitted :
+ * ### options permitted : attribute(not Used For Now)
  * attribute        |   options     |   Value {default}
  * -----------------|---------------|------------------
  * data-html        |   html        |   true|false {false}
@@ -11,9 +11,9 @@
  *
  * ### functions triggered
  * 1. onStart --> when the tour is start tour method is called.
- * 2. onClosed --> when the tour is close or destroyed. The current step element is available as the **relatedTarget** property of the event
- * 3. onChanged  --> when our tour moved from one step to another. The current step element is available as the **relatedTarget** property of the event
- * 4. onFinished(No use for the now) --> when our tour has finished its processing. The current step element is available as the **relatedTarget** property of the event
+ * 2. onClosed --> when the tour is close or destroyed. The current step element is available as a JQueryObject
+ * 3. onChanged  --> when our tour moved from one step to another. The current step element is available as a JQueryObject
+ * 4. onFinished(No use for the now) --> when our tour has finished its processing. The current step element is available as a JQueryObject
  */
 var ProductTour;
 (function ( jQuery ) {
@@ -24,6 +24,7 @@ var ProductTour;
      */
 	ProductTour = function(options){
 	var added = false;//if tour steps has been added
+    var global_items = [];//holds our items for us globally
 
         /**
          *  options initialization
@@ -72,6 +73,9 @@ var ProductTour;
             console.warn("Tour steps has already been added, you can't add step on the fly, coming on next version");
             return;
         }
+
+        //make it global
+        global_items = items;//keep it there so we can use it from other functions
 
         //DOM initialization
         var stepsHTML = "<ul class='cd-tour-wrapper'>";
@@ -173,7 +177,7 @@ var ProductTour;
 			closeTour(tourSteps, tourWrapper, coverLayer);
             //running call our onClosed trigger if specified
             if(jQuery.isFunction(options.onClosed))
-                options.onClosed(coverLayer);
+                options.onClosed(jQuery(global_items[getActiveStepCount()].element));//returns the current layer as JQuery object);
 		});
 
 		//detect swipe event on mobile - change visible step
@@ -241,7 +245,7 @@ var ProductTour;
 	}
 
         /**
-         * this changes step , if any is active call the onChanged(current_layer) function if specified
+         * this changes step , if any is active call the onChanged(current_layer):JQueryObject function if specified
          * @param steps
          * @param layer
          * @param bool
@@ -264,9 +268,26 @@ var ProductTour;
 			jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({'z-index': 90001, position: 'relative'});
             //running call our onChange trigger if specified
             if(jQuery.isFunction(options.onChanged))
-                options.onChanged(( bool == 'next' )? visibleStep.next():visibleStep.prev());
+                options.onChanged(jQuery(global_items[getActiveStepCount()].element));//returns the current layer as JQuery object
 		}, delay);
 	}
+
+        /**
+         * this returns the active step number
+         * @return {number}
+         */
+	function getActiveStepCount() {
+            var tourWrapper = jQuery('.cd-tour-wrapper'), //get the wrapper element
+                tourSteps = tourWrapper.children('li'); //get all its children with tag 'li'
+
+            var count=0;
+            tourSteps.each(function (index, li) {
+                if(jQuery(li).hasClass('is-selected'))
+                    count = index;
+
+            });
+        return count;
+    }
 
 	function closeTour(steps, wrapper, layer) {
 		steps.removeClass('is-selected move-left');

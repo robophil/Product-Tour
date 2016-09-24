@@ -20,12 +20,15 @@
 <script>
     //initialize constructor
     var productTour = new ProductTour({
-        overlay:false,
+        overlay:true,
         onStart: function () {
             console.log("tour Started");
         },
         onChanged:function (e) {
             console.log("Return Value",e);
+        },
+        onClosed:function (e) {
+            console.log("Return Value For On Close",e);
         },
         onFinshFunction: function(){},
         beforeShow: function(){},//not yet implemented
