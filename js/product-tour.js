@@ -264,7 +264,7 @@ var ProductTour;
 			jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({'z-index': 90001, position: 'relative'});
             //running call our onChange trigger if specified
             if(jQuery.isFunction(options.onChanged))
-                options.onChanged(layer);
+                options.onChanged(( bool == 'next' )? visibleStep.next():visibleStep.prev());
 		}, delay);
 	}
 
