@@ -39,7 +39,6 @@ var ProductTour;
         options.onStart = (typeof options.onStart === 'function') ? options.onStart : undefined;
         options.onChanged = (typeof options.onChanged === 'function') ? options.onChanged : undefined;
         options.onClosed = (typeof options.onClosed === 'function') ? options.onClosed : undefined;
-        options.onFinished = (typeof options.onFinished === 'function') ? options.onFinished : undefined;//no use for the now
 
         /**
          * startTour method
