@@ -25,6 +25,7 @@ var ProductTour;
     ProductTour = function (options) {
         var added = false;//if tour steps has been added
         var global_items = [];//holds our items for us globally
+        var global_target_selectors = [];//holds all selector to be targeted by tour
 
         /**
          *  options initialization
@@ -78,7 +79,7 @@ var ProductTour;
 
             //DOM initialization
             var stepsHTML = "<ul class='cd-tour-wrapper'>";
-            var itemHTML = "<div><li class='cd-single-step'><input type='hidden' value=''><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src=''></div></li></div>";
+            var itemHTML = "<div><li class='cd-single-step'><span>Step</span><div class='cd-more-info'><h2></h2><p></p><img src=''></div></li></div>";
 
             var itemString = "";
             jQuery.each(items, function (index, item) {
@@ -94,6 +95,8 @@ var ProductTour;
                     item.element = 'body';//if the item dosen't exist make it point to body
                 else
                     item.element += ":first"; //if exist just reference the first element
+                
+                global_target_selectors.push(item.element);//store the selector globally
 
                 var htmlElement = jQuery(itemHTML);
 
@@ -116,7 +119,6 @@ var ProductTour;
                     var top = jQuery(item.element).offset().top + -12 + heightHalf;//12px is the magical pixel ;)
                     var left = jQuery(item.element).offset().left + widthHalf;
 
-                    jQuery('input', htmlElement).val(item.element);//save the target element in the dom
                     jQuery('li.cd-single-step', htmlElement).css({ top: top, left: left, height: '10px', width: '10px' });//Item is ready
                 }
                 //build the tour content
@@ -153,7 +155,7 @@ var ProductTour;
                 jQuery('.cd-prev').text(options.prev);
             }
             //init for first tour step display
-            jQuery(jQuery("li.cd-single-step input").val()).css({ 'z-index': 90001, position: 'relative' });
+            jQuery(global_target_selectors[getActiveStepCount()]).addClass('tour-target-element');
 
             tourTrigger.on('click', function () {
                 //start tour
@@ -233,8 +235,8 @@ var ProductTour;
 
         function smoothScroll(element) {
             if (jQuery(window).width() < 768) return;
-            var top = jQuery(jQuery("li.cd-single-step.is-selected input").val()).offset().top;
-            var height = jQuery(jQuery("li.cd-single-step.is-selected input").val()).height();
+            var top = jQuery(global_target_selectors[getActiveStepCount()]).offset().top;
+            var height = jQuery(global_target_selectors[getActiveStepCount()]).height();
 
             (top < jQuery(window).scrollTop()) && jQuery('body,html').animate({ 'scrollTop': top - height }, 'slow');
             (top + height > jQuery(window).scrollTop() + jQuery(window).height()) && jQuery('body,html').animate({ 'scrollTop': top - height }, 'slow');
@@ -257,11 +259,8 @@ var ProductTour;
                 delay = (viewportSize() == 'desktop') ? 300 : 0;
             visibleStep.removeClass('is-selected');
 
-            //remove applied style from 
-            jQuery("li.cd-single-step input").each(function (i) {
-                console.log(i);
-                jQuery(jQuery(this).val()).removeAttr('style');
-            });
+            //remove class that make tour target elemment pop when selected
+            jQuery(global_target_selectors[getActiveStepCount()]).removeClass('tour-target-element');
 
             (bool == 'next') && visibleStep.addClass('move-left');
 
@@ -269,8 +268,11 @@ var ProductTour;
                 (bool == 'next')
                     ? showStep(visibleStep.next(), layer)
                     : showStep(visibleStep.prev(), layer);
-                jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({ 'z-index': 90001 , position: 'relative !important' });
-                //running call our onChange trigger if specified
+
+                //add class to make tour target element pop
+                jQuery(global_target_selectors[getActiveStepCount()]).addClass('tour-target-element');
+
+                //call onChange trigger if specified
                 if (jQuery.isFunction(options.onChanged))
                     options.onChanged(jQuery(global_items[getActiveStepCount()].element));//returns the current layer as JQuery object
             }, delay);
@@ -298,9 +300,7 @@ var ProductTour;
             wrapper.removeClass('active');
             layer.removeClass('is-visible');
             jQuery('.overlay-tour').css({ display: 'none' });
-            jQuery("li.cd-single-step input").each(function (i) {
-                jQuery(jQuery(this).val()).removeAttr('style');
-            });
+            jQuery(global_target_selectors[getActiveStepCount()]).removeClass('tour-target-element');
         }
 
         function viewportSize() {
