@@ -4,8 +4,8 @@
  * attribute        |   options     |   Value {default}
  * -----------------|---------------|------------------
  * data-html        |   html        |   true|false {false}
- * data-next        |   next        |   string|html depends on the data-html {'Next &#8618;'}
- * data-prev        |   prev        |   string|html depends on the data-html {'&#8617; Previous'}
+ * data-next        |   next        |   string|html depends on the data-html/html {'Next &#8618;'}
+ * data-prev        |   prev        |   string|html depends on the data-html/html {'&#8617; Previous'}
  * data-overlay     |   overlay     |   true|false {true}
  *
  *
@@ -36,10 +36,10 @@ var ProductTour;
         options.overlay = "overlay" in options ? options.overlay : true;
 
         //functions triggers
-        options.onStart = options.onStart ? options.onStart : undefined;
-        options.onChanged = options.onChanged ? options.onChanged : undefined;
-        options.onClosed = options.onClosed ? options.onClosed : undefined;
-        options.onFinished = options.onFinished ? options.onFinished : undefined;//no use for the now
+        options.onStart = (typeof options.onStart === 'function') ? options.onStart : undefined;
+        options.onChanged = (typeof options.onChanged === 'function') ? options.onChanged : undefined;
+        options.onClosed = (typeof options.onClosed === 'function') ? options.onClosed : undefined;
+        options.onFinished = (typeof options.onFinished === 'function') ? options.onFinished : undefined;//no use for the now
 
         /**
          * startTour method
@@ -95,7 +95,7 @@ var ProductTour;
                     item.element = 'body';//if the item dosen't exist make it point to body
                 else
                     item.element += ":first"; //if exist just reference the first element
-                
+
                 global_target_selectors.push(item.element);//store the selector globally
 
                 var htmlElement = jQuery(itemHTML);
