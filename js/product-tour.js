@@ -97,6 +97,9 @@ var ProductTour;
 
                 var htmlElement = jQuery(itemHTML);
 
+                /*
+                    If no title was added delete the node to allow for custom style from content
+                 */
                 if (item.title != undefined)
                     jQuery('h2', htmlElement).text(item.title);
                 else //remove the h2 node , in case the content want to override the design
@@ -254,7 +257,9 @@ var ProductTour;
                 delay = (viewportSize() == 'desktop') ? 300 : 0;
             visibleStep.removeClass('is-selected');
 
+            //remove applied style from 
             jQuery("li.cd-single-step input").each(function (i) {
+                console.log(i);
                 jQuery(jQuery(this).val()).removeAttr('style');
             });
 
@@ -264,7 +269,7 @@ var ProductTour;
                 (bool == 'next')
                     ? showStep(visibleStep.next(), layer)
                     : showStep(visibleStep.prev(), layer);
-                jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({ 'z-index': 90001, position: 'relative' });
+                jQuery(jQuery("li.cd-single-step.is-selected input").val()).css({ 'z-index': 90001 , position: 'relative !important' });
                 //running call our onChange trigger if specified
                 if (jQuery.isFunction(options.onChanged))
                     options.onChanged(jQuery(global_items[getActiveStepCount()].element));//returns the current layer as JQuery object
@@ -279,13 +284,13 @@ var ProductTour;
             var tourWrapper = jQuery('.cd-tour-wrapper'), //get the wrapper element
                 tourSteps = tourWrapper.children('li'); //get all its children with tag 'li'
 
-            var count = 0;
+            var current_index = 0;
             tourSteps.each(function (index, li) {
                 if (jQuery(li).hasClass('is-selected'))
-                    count = index;
-
+                    current_index = index;
             });
-            return count;
+
+            return current_index;
         }
 
         function closeTour(steps, wrapper, layer) {
