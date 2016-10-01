@@ -53,32 +53,30 @@
         },
         onClosed:function (e) {
             console.log("Return Value For On Close",e);
-        },
-        onFinshFunction: function(){},
-        beforeShow: function(){},//not yet implemented
-        afterShow: function(){}//not yet implemented
+        }
     });
     //can only be called once
     productTour.steps([{//pass an array of tour steps
         element: '#first',//specify the target element #search or .header
-            title: 'Tour',
-            content: 'This is the first section #1',
-            image: ''//specify image to be shown on mobile view
+        title: 'Tour',
+        content: 'This is the first section #1',
+        image: 'images/sample.jpg'//specify image to be shown on mobile view
     },{//pass an array of tour steps
         element: '#second',//specify the target element #search or .header
         content: 'The second section #2',
-        image: '',//specify image to be shown on mobile view
+        image: 'images/sample.jpg',//specify image to be shown on mobile view
         position: 'bottom'//top, bottom, right, left
     },{//pass an array of tour steps
         element: '#third',//specify the target element #search or .header
         title: 'Tour',
+        image: 'images/sample.jpg',
         content: 'This is the third section Step #3',
         position: 'top'//top, bottom, right, left
     },{//pass an array of tour steps
         element: '#fourth',//specify the target element #search or .header
         title: 'Tour',
         content: 'This is the forth and final section... yay. #4',
-        image: '',//specify image to be shown on mobile view
+        image: 'images/sample.jpg',//specify image to be shown on mobile view
         position: 'left'//top, bottom, right, left
     }]);
 
