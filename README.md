@@ -5,84 +5,67 @@ A responsive tour snippet, with a step-by-step guide(onboarding) to help users u
 - [Jquery](https://jquery.com/)
 
 ##Example
-```javascript
-		var productTour = new ProductTour({
-				next: 'Next',
-				prev: 'Previous',
-				onChanged: function(e){
-					console.log('i just changed', e);
-				}
-			});
-			
-		productTour.steps([{element: '#search', 
-			title: 'Search for anything',
-			content: "Search for any product, from any page, anytime........", 
-			position: 'right'},
-			
-			{element:'.brand-carousel',
-			 title: 'Brands',
-			 content: "All your favourite brands available here on payporte.com"}]);
-								 
-		productTour.startTour();
-```
+see index.html
 
 ##Usage
 Simply include the following to get started
 ```html
 <script src="<link to jquery.js>"></script>
-<script src="product-tour.js" type="text/javascript"></script>
-<link href="product-tour.css" rel="stylesheet" type="text/css" />
+<script src="product-tour.min.js" type="text/javascript"></script>
+<link href="product-tour.min.css" rel="stylesheet" type="text/css"/>
 ```
-```javascript
-//initialize constructor
-var productTour = new ProductTour({ 
-	nextText: '',
-	prevText: '',
-	onFinshFunction: function(){},
-	beforeShow: function(){},//coming soon
-	afterShow: function(){}//comming soon
-});
-//can only be called once
-productTour.addNewTourSteps([//pass an array of tour steps
-	element: '',//specify the target element #search or .header
-	title: '',
-	content: '',
-	image: '',//specify image to be shown on mobile view
-	class: ''//top, bottom, right, left
-]);
 
-productTour.startTour();//initialize the tour
+```javascript
+	//initialize constructor
+	var productTour = new ProductTour({ 
+		overlay:true,// optional (true || false) defaults: true
+		onStart: function () {},//called when tour starts || optional
+		onChanged:function (e) {},//called when tour changes || optional 
+		onClosed:function (e) {},//called when the tour has been closed || optional
+		nextText: '', //optional defaults: 'next'
+		prevText: '', //optional defaults: 'prev'
+		html:// optional (true || false) defaults: false
+	});
+	//can only be called once
+	productTour.addNewTourSteps([//pass an array of tour steps
+		element: '',//specify the target selector by id or class #search or .header (defaults: body)
+		title: '',//title of the tour step
+		content: '',//content. Could be text or html. (if html set html attribute above to be true)
+		image: '',//specify image to be shown on mobile view
+		class: ''//top, bottom, right, left
+	]); 
+	productTour.startTour();//initialize the tour
 ```
 
 ## Development
 To clone and run project with a view of developing framework
-``` bash
-npm install
+```bash
+	npm install
 ```
 NPM would help in getting our environment ready
-``` bash
-bower install
+```bash
+	bower install
 ```
 would bring our jquery dependency.
 
 we used [**gulp**](http://gulpjs.com) in handling our building and test running of frame work
 
 Use the _**index.html**_ to do your design and testing of framework with the browser, simply use the command below
-``` bash
-gulp serve
+```bash
+	gulp serve
 ```
 which listens to updates of our **product-tour.js** and **product-tour.css** and call our 
-``` bash
-gulp build
+```bash
+	gulp build
 ```
 to help compile and build our minified version which is automatically or already called in our _index.html_ so the browser is opened
-``` bash
+```bash
 gulp build-js
 ```
 Build Just the JS
 
-``` bash
-gulp build-css
+```bash
+	gulp build-css
 ```
 Build Just the CSS
 
