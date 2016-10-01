@@ -675,3 +675,8 @@ xapp prototype - no need to import this in production
 	right:0;
 	left: 0;
 }
+
+.tour-target-element{
+  z-index: 90001 !important;
+  position: relative !important
+}
