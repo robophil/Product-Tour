@@ -6,11 +6,35 @@
     <link rel="stylesheet" href="css/product-tour.css">
 </head>
 <body>
+<div class="item" id="first">
+    <h1>#1</h1>
+</div>
+<div class="item" id="fourth">
+    <h1>#4</h1>
+</div>
+<div class="item" id="third">
+    <h1>#3</h1>
+</div>
+<div class="item" id="second">
+    <h1>#2</h1>
+</div>
+<style>
+    .item{
+        width: 100%;
+        height: 200px;
+        background-color: yellow;
+        margin: 5px;
+    }
 
-<p id="first">Hello there, am the first paragraph............</p>
-<p id="second">This is the second destination of our tour......................................... yep, i am the second destination.</p>
-<p id="four">Here this is our first tour destination</p>
-<p id="third">How many third can you see? thirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthirdthird</p>
+    div.item:nth-child(odd) {
+        background-color: yellow;
+    }
+
+    div.item:nth-child(even) {
+        background-color: blue;
+    }
+
+</style>
 
 <!-- Main Vendors -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -38,22 +62,22 @@
     productTour.steps([{//pass an array of tour steps
         element: '#first',//specify the target element #search or .header
             title: 'Tour',
-            content: 'This is a Paragraph of Our First Tour Step 1',
+            content: 'This is the first section #1',
             image: ''//specify image to be shown on mobile view
     },{//pass an array of tour steps
         element: '#second',//specify the target element #search or .header
-        content: 'No Title This is a Paragraph of Our First Tour Step 2',
+        content: 'The second section #2',
         image: '',//specify image to be shown on mobile view
         position: 'bottom'//top, bottom, right, left
     },{//pass an array of tour steps
         element: '#third',//specify the target element #search or .header
         title: 'Tour',
-        content: 'This is a Paragraph of Our First Tour Step 3',
+        content: 'This is the third section Step #3',
         position: 'top'//top, bottom, right, left
     },{//pass an array of tour steps
-        element: '#four',//specify the target element #search or .header
+        element: '#fourth',//specify the target element #search or .header
         title: 'Tour',
-        content: 'This is a Paragraph of Our First Tour Step 4',
+        content: 'This is the forth and final section... yay. #4',
         image: '',//specify image to be shown on mobile view
         position: 'left'//top, bottom, right, left
     }]);
