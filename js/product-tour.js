@@ -67,7 +67,10 @@ var ProductTour;
             }
          */
         this.steps = function (items) {
-            if (!(items instanceof Array)) return;//expecting an array. If not one, return
+            if (!(items instanceof Array)){
+                console.error("Expecting an array of tour items or steps.");
+                return;//expecting an array. If not one, return
+            }
             if (added) {
                 console.warn("Tour steps has already been added, you can't add step on the fly, coming on next version");
                 return;
