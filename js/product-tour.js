@@ -218,6 +218,11 @@ var ProductTour;
         }
 
         function createNavigation(steps, n) {
+            // Remove the navigation if it exists to prevent duplication.
+            if( $('.cd-nav').length > 0 ) {
+                $(".cd-nav").remove();
+            }
+            
             var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of ' + n + '</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#8617; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#8618;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
 
             steps.each(function (index) {
