@@ -18,7 +18,8 @@
     "js",
     "npm",
     "onboarding",
-    "intro"
+    "intro",
+    "plugin"
   ],
   "author": "Theophilus Omoregbee <theo4u@ymail.com>",
   "license": "ISC",
