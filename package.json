@@ -1,6 +1,6 @@
 {
   "name": "product-tour",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website",
   "main": "js/product-tour.js",
   "scripts": {
