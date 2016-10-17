@@ -1,0 +1,10 @@
+.idea
+.npmignore
+.gitignore
+bower_components
+css
+images
+js
+node_modules
+gulp.js
+index.html
