@@ -11,12 +11,15 @@
     "url": "git+https://github.com/theo4u/Product-Tour.git"
   },
   "keywords": [
-    "tour",
+    "product tour",
     "preview",
     "welcome",
     "css",
     "js",
-    "npm"
+    "npm",
+    "onboarding",
+    "intro",
+    "plugin"
   ],
   "author": "Theophilus Omoregbee <theo4u@ymail.com>",
   "license": "ISC",
