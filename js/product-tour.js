@@ -180,14 +180,14 @@ var ProductTour;
                 //go to prev step - if available
                 (!jQuery(event.target).hasClass('inactive')) &&
                 //call onBeforeChange trigger if specified
-                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                 changeStep(tourSteps, coverLayer, 'prev');
             });
             tourStepInfo.on('click', '.cd-next', function (event) {
                 //go to next step - if available
                 (!jQuery(event.target).hasClass('inactive')) &&
                 //call onBeforeChange trigger if specified
-                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                 changeStep(tourSteps, coverLayer, 'next');
             });
 
@@ -204,14 +204,14 @@ var ProductTour;
                 //go to prev step - if available
                 if (!jQuery(this).find('.cd-prev').hasClass('inactive') && viewportSize() == 'mobile') 
                     //call onBeforeChange trigger if specified
-                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'prev');
             });
             tourStepInfo.on('swipeleft', function (event) {
                 //go to next step - if available
                 if (!jQuery(this).find('.cd-next').hasClass('inactive') && viewportSize() == 'mobile')
                     //call onBeforeChange trigger if specified
-                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'next');
             });
 
@@ -219,11 +219,11 @@ var ProductTour;
             jQuery(document).keyup(function (event) {
                 if (event.which == '37' && !tourSteps.filter('.is-selected').find('.cd-prev').hasClass('inactive')) {
                     //call onBeforeChange trigger if specified
-                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'prev');
                 } else if (event.which == '39' && !tourSteps.filter('.is-selected').find('.cd-next').hasClass('inactive')) {
                     //call onBeforeChange trigger if specified
-                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) &&
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'next');
                 } else if (event.which == '27') {
                     closeTour(tourSteps, tourWrapper, coverLayer);
