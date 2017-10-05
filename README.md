@@ -2,16 +2,16 @@
 A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website.
 
 ```bash
-	npm install product-tour
+npm install product-tour
 ```
 
-##Requirement
+## Requirements
 - [Jquery](https://jquery.com/)
 
-##Example
-see index.html
+## Example
+See index.html
 
-##Usage
+## Usage
 Simply include the following to get started
 ```html
 <script src="<link to jquery.js>"></script>
@@ -20,73 +20,77 @@ Simply include the following to get started
 ```
 
 ```javascript
-	//initialize constructor
-	var productTour = new ProductTour({ 
-		overlay:true,// optional (true || false) defaults: true
-		onStart: function () {},//called when tour starts || optional
-		onChanged:function (e) {},//called when tour changes || optional 
-		onClosed:function (e) {},//called when the tour has been closed || optional
-		nextText: '', //optional defaults: 'next'
-		prevText: '', //optional defaults: 'prev'
-		html:// optional (true || false) defaults: false
-	});
-	//can only be called once
-	productTour.addNewTourSteps([//pass an array of tour steps
-	   {
-		element: '',//specify the target selector by id or class #search or .header (defaults: body)
-		title: '',//title of the tour step
-		content: '',//content. Could be text or html. (if html set html attribute above to be true)
-		image: '',//specify image to be shown on mobile view
-		class: ''//top, bottom, right, left
-	   },
-	   {
-		element: '',//specify the target selector by id or class #search or .header (defaults: body)
-		title: '',//title of the tour step
-		content: '',//content. Could be text or html. (if html set html attribute above to be true)
-		image: '',//specify image to be shown on mobile view
-		class: ''//top, bottom, right, left
-	   }
-	]); 
-	productTour.startTour();//initialize the tour
+// initialize constructor
+var productTour = new ProductTour({ 
+	overlay:true, // optional (true || false) defaults: true
+	onStart: function () {}, // called when tour starts || optional
+	onChanged:function (e) {}, // called when tour changes || optional 
+	onClosed:function (e) {}, // called when the tour has been closed || optional
+	nextText: '', // optional defaults: 'next'
+	prevText: '', // optional defaults: 'prev'
+	html: // optional (true || false) defaults: false
+});
+// can only be called once
+productTour.addNewTourSteps([ // pass an array of tour steps
+	{
+		element: '', // specify the target selector by id or class #search or .header (defaults: body)
+		title: '', // title of the tour step
+		content: '', // content. Could be text or html. (if html set html attribute above to be true)
+		image: '', // specify image to be shown on mobile view
+		class: '' // top, bottom, right, left
+	},
+	{
+		element: '', // specify the target selector by id or class #search or .header (defaults: body)
+		title: '', // title of the tour step
+		content: '', // content. Could be text or html. (if html set html attribute above to be true)
+		image: '', // specify image to be shown on mobile view
+		class: '' // top, bottom, right, left
+	}
+]); 
+productTour.startTour(); // initialize the tour
 ```
 
 ## Development
 To clone and run project with a view of developing framework
-```bash
-	npm install
-```
-NPM would help in getting our environment ready
-```bash
-	bower install
-```
-would bring our jquery dependency.
 
-we used [**gulp**](http://gulpjs.com) in handling our building and test running of frame work
+NPM would help in getting our environment ready:
+```bash
+npm install
+```
 
-Use the _**index.html**_ to do your design and testing of framework with the browser, simply use the command below
+Bring in our jquery dependency:
 ```bash
-	gulp serve
+bower install
 ```
-which listens to updates of our **product-tour.js** and **product-tour.css** and call our 
+
+We used [**gulp**](http://gulpjs.com) in handling our building and test running of frame work.
+
+Use the _**index.html**_ to do your design and testing of the framework with the browser. Simply use the command below:
 ```bash
-	gulp build
+gulp serve
 ```
-to help compile and build our minified version which is automatically or already called in our _index.html_ so the browser is opened
+This will listen to updates of our **product-tour.js** and **product-tour.css** and call:
+```bash
+gulp build
+```
+to help compile and build our minified version which is automatically or already called in our _index.html_
+file so the browser is opened.
+
+### Build Just the JS
 ```bash
 gulp build-js
 ```
-Build Just the JS
 
+### Build Just the CSS
 ```bash
-	gulp build-css
+gulp build-css
 ```
-Build Just the CSS
 
-##Credits
+## Credits
 https://codyhouse.co/gem/product-tour/
 
-##Demo
+## Demo
 https://codyhouse.co/demo/product-tour/
 
-##Contributions
+## Contributions
 Send a pull request or create an issue... thanks
