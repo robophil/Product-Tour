@@ -31,7 +31,7 @@ var productTour = new ProductTour({
 	html: // optional (true || false) defaults: false
 });
 // can only be called once
-productTour.addNewTourSteps([ // pass an array of tour steps
+productTour.steps([ // pass an array of tour steps
 	{
 		element: '', // specify the target selector by id or class #search or .header (defaults: body)
 		title: '', // title of the tour step
