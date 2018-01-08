@@ -37,14 +37,14 @@ productTour.steps([ // pass an array of tour steps
 		title: '', // title of the tour step
 		content: '', // content. Could be text or html. (if html set html attribute above to be true)
 		image: '', // specify image to be shown on mobile view
-		class: '' // top, bottom, right, left
+		position: '' // top, bottom, right, left
 	},
 	{
 		element: '', // specify the target selector by id or class #search or .header (defaults: body)
 		title: '', // title of the tour step
 		content: '', // content. Could be text or html. (if html set html attribute above to be true)
 		image: '', // specify image to be shown on mobile view
-		class: '' // top, bottom, right, left
+		position: '' // top, bottom, right, left
 	}
 ]); 
 productTour.startTour(); // initialize the tour
