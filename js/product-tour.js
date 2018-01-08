@@ -39,6 +39,7 @@ var ProductTour;
         options.onStart = (typeof options.onStart === 'function') ? options.onStart : undefined;
         options.onChanged = (typeof options.onChanged === 'function') ? options.onChanged : undefined;
         options.onClosed = (typeof options.onClosed === 'function') ? options.onClosed : undefined;
+        options.onBeforeChange = (typeof options.onBeforeChange === 'function') ? options.onBeforeChange : function(){};
 
         /**
          * startTour method
@@ -91,6 +92,7 @@ var ProductTour;
                 item.content = item.content ? item.content : '';//leave blank
                 item.image = item.image ? item.image : 'images/sample.jpg';//image is needed for mobile, dont see the need here
                 item.position = item.position ? item.position : 'bottom';
+                item.options = item.options ? item.options : false;
 
                 //find out if the element exists
                 if (item.element == undefined)
@@ -121,7 +123,12 @@ var ProductTour;
                     var top = jQuery(item.element).offset().top + -12 + heightHalf;//12px is the magical pixel ;)
                     var left = jQuery(item.element).offset().left + widthHalf;
 
-                    jQuery('li.cd-single-step', htmlElement).css({ top: top, left: left, height: '10px', width: '10px' });//Item is ready
+                    if(!item.options){
+                        jQuery('li.cd-single-step', htmlElement).css({ top: top, left: left, height: '10px', width: '10px' });//Item is ready
+                    } else {
+                        jQuery('li.cd-single-step', htmlElement).css(item.options);//Item is ready
+                    }
+                    
                 }
                 //build the tour content
                 itemString += htmlElement.html();
@@ -171,11 +178,17 @@ var ProductTour;
             //change visible step
             tourStepInfo.on('click', '.cd-prev', function (event) {
                 //go to prev step - if available
-                (!jQuery(event.target).hasClass('inactive')) && changeStep(tourSteps, coverLayer, 'prev');
+                (!jQuery(event.target).hasClass('inactive')) &&
+                //call onBeforeChange trigger if specified
+                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
+                changeStep(tourSteps, coverLayer, 'prev');
             });
             tourStepInfo.on('click', '.cd-next', function (event) {
                 //go to next step - if available
-                (!jQuery(event.target).hasClass('inactive')) && changeStep(tourSteps, coverLayer, 'next');
+                (!jQuery(event.target).hasClass('inactive')) &&
+                //call onBeforeChange trigger if specified
+                options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
+                changeStep(tourSteps, coverLayer, 'next');
             });
 
             //close tour
@@ -189,18 +202,28 @@ var ProductTour;
             //detect swipe event on mobile - change visible step
             tourStepInfo.on('swiperight', function (event) {
                 //go to prev step - if available
-                if (!jQuery(this).find('.cd-prev').hasClass('inactive') && viewportSize() == 'mobile') changeStep(tourSteps, coverLayer, 'prev');
+                if (!jQuery(this).find('.cd-prev').hasClass('inactive') && viewportSize() == 'mobile') 
+                    //call onBeforeChange trigger if specified
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
+                    changeStep(tourSteps, coverLayer, 'prev');
             });
             tourStepInfo.on('swipeleft', function (event) {
                 //go to next step - if available
-                if (!jQuery(this).find('.cd-next').hasClass('inactive') && viewportSize() == 'mobile') changeStep(tourSteps, coverLayer, 'next');
+                if (!jQuery(this).find('.cd-next').hasClass('inactive') && viewportSize() == 'mobile')
+                    //call onBeforeChange trigger if specified
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
+                    changeStep(tourSteps, coverLayer, 'next');
             });
 
             //keyboard navigation
             jQuery(document).keyup(function (event) {
                 if (event.which == '37' && !tourSteps.filter('.is-selected').find('.cd-prev').hasClass('inactive')) {
+                    //call onBeforeChange trigger if specified
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'prev');
                 } else if (event.which == '39' && !tourSteps.filter('.is-selected').find('.cd-next').hasClass('inactive')) {
+                    //call onBeforeChange trigger if specified
+                    options.onBeforeChange(jQuery(global_items[getActiveStepCount()+1].element)) ||
                     changeStep(tourSteps, coverLayer, 'next');
                 } else if (event.which == '27') {
                     closeTour(tourSteps, tourWrapper, coverLayer);
