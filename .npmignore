@@ -8,3 +8,5 @@ js
 node_modules
 gulp.js
 index.html
+Session.vim
+.undodir
