@@ -7,20 +7,9 @@ Primary style
   box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 body {
   min-height: 100%;
-  font-size: 1.6rem;
-  font-family: Helvetica, sans-serif;
   color: #222d33;
-}
-
-a {
-  color: #ff962c;
-  text-decoration: none;
 }
 
 /* -------------------------------- 
@@ -92,7 +81,12 @@ xnugget info
 Main Components 
 
 -------------------------------- */
+.cd-tour-wrapper a {
+  color: #ff962c;
+  text-decoration: none;
+}
 .cd-tour-wrapper {
+  font-family: Helvetica, sans-serif;
   position: fixed;
   z-index: 2;
   height: 90%;
@@ -371,12 +365,10 @@ Main Components
   display: none;
 }
 .cd-single-step .cd-more-info h2 {
-  font-size: 2rem;
   line-height: 1.2;
   margin-bottom: .4em;
 }
 .cd-single-step .cd-more-info p {
-  font-size: 1.3rem;
   line-height: 1.6;
   margin-bottom: 1.4em;
   font-family: Georgia, serif;
@@ -435,7 +427,6 @@ Main Components
   /* step count e.g. 1 of 3*/
   float: left;
   padding-top: .1em;
-  font-size: 1.3rem;
   font-family: Georgia, serif;
 }
 @media only screen and (min-width: 768px) {
@@ -554,7 +545,6 @@ Main Components
   margin-right: 1.5em;
 }
 .cd-tour-nav a {
-  font-size: 1.3rem;
   color: #222d33;
   font-weight: bold;
 }

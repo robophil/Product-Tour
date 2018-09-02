@@ -26,8 +26,9 @@ var productTour = new ProductTour({
 	onStart: function () {}, // called when tour starts || optional
 	onChanged:function (e) {}, // called when tour changes || optional 
 	onClosed:function (e) {}, // called when the tour has been closed || optional
-	nextText: '', // optional defaults: 'next'
-	prevText: '', // optional defaults: 'prev'
+	next: '', // optional defaults: 'Next'
+	prev: '', // optional defaults: 'Previous'
+	of: '', // optional defaults: 'of'
 	html: // optional (true || false) defaults: false
 });
 // can only be called once
@@ -56,11 +57,6 @@ To clone and run project with a view of developing framework
 NPM would help in getting our environment ready:
 ```bash
 npm install
-```
-
-Bring in our jquery dependency:
-```bash
-bower install
 ```
 
 We used [**gulp**](http://gulpjs.com) in handling our building and test running of frame work.

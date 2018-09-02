@@ -30,8 +30,12 @@ var ProductTour;
         /**
          *  options initialization
          */
+        if (typeof options === 'undefined') {
+            options = {}
+        }
         options.next = options.next ? options.next : "Next";
         options.prev = options.prev ? options.prev : "Previous";
+        options.of = options.of ? options.of : "of";
         options.html = "html" in options ? options.html : false;
         options.overlay = "overlay" in options ? options.overlay : true;
 
@@ -223,7 +227,7 @@ var ProductTour;
                 jQuery('.cd-nav').remove();
             }
             
-            var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> of ' + n + '</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#8617; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#8618;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
+            var tourNavigationHtml = '<div class="cd-nav"><span><b class="cd-actual-step">1</b> ' + options.of + ' ' + n + '</span><ul class="cd-tour-nav"><li><a href="javascript:;" class="cd-prev">&#8617; Previous</a></li><li><a href="javascript:;" class="cd-next">Next &#8618;</a></li></ul></div><a href="javascript:;" class="cd-close">Close</a>';
 
             steps.each(function (index) {
                 var step = jQuery(this),
