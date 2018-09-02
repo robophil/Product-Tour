@@ -2,7 +2,7 @@
 A responsive tour snippet, with a step-by-step guide(onboarding) to help users understand how to use your website.
 
 ```bash
-npm install product-tour
+npm install product-tour@latest
 ```
 
 ## Requirements
@@ -21,10 +21,10 @@ Simply include the following to get started
 
 ```javascript
 // initialize constructor
-var productTour = new ProductTour({ 
+var productTour = new ProductTour({
 	overlay:true, // optional (true || false) defaults: true
 	onStart: function () {}, // called when tour starts || optional
-	onChanged:function (e) {}, // called when tour changes || optional 
+	onChanged:function (e) {}, // called when tour changes || optional
 	onClosed:function (e) {}, // called when the tour has been closed || optional
 	next: '', // optional defaults: 'Next'
 	prev: '', // optional defaults: 'Previous'
@@ -47,7 +47,7 @@ productTour.steps([ // pass an array of tour steps
 		image: '', // specify image to be shown on mobile view
 		position: '' // top, bottom, right, left
 	}
-]); 
+]);
 productTour.startTour(); // initialize the tour
 ```
 
