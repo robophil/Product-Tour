@@ -26,8 +26,9 @@ var productTour = new ProductTour({
 	onStart: function () {}, // called when tour starts || optional
 	onChanged:function (e) {}, // called when tour changes || optional 
 	onClosed:function (e) {}, // called when the tour has been closed || optional
-	nextText: '', // optional defaults: 'next'
-	prevText: '', // optional defaults: 'prev'
+	next: '', // optional defaults: 'Next'
+	prev: '', // optional defaults: 'Previous'
+	of: '', // optional defaults: 'of'
 	html: // optional (true || false) defaults: false
 });
 // can only be called once
