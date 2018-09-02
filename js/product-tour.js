@@ -30,6 +30,9 @@ var ProductTour;
         /**
          *  options initialization
          */
+        if (typeof options === 'undefined') {
+            options = {}
+        }
         options.next = options.next ? options.next : "Next";
         options.prev = options.prev ? options.prev : "Previous";
         options.html = "html" in options ? options.html : false;
