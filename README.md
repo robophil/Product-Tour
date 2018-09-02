@@ -59,11 +59,6 @@ NPM would help in getting our environment ready:
 npm install
 ```
 
-Bring in our jquery dependency:
-```bash
-bower install
-```
-
 We used [**gulp**](http://gulpjs.com) in handling our building and test running of frame work.
 
 Use the _**index.html**_ to do your design and testing of the framework with the browser. Simply use the command below:
